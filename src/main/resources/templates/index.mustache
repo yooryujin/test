@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>출석 체크 메인 페이지 - 배경 복구</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'CookieRun';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.0/CookieRun.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            display: flex; /* 중앙 정렬을 위한 flex 속성 */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+
+
+            background-image: url('https://yooryujin.github.io/test/galaxy-impact.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            font-family: 'CookieRun', sans-serif;
+            color: #5C4033;
+        }
+
+        .event-card {
+            width: 380px;
+            height: 480px;
+            /* 배경 이미지가 비치도록 투명도 (0.9)를 가진 카드 배경 */
+            background-color: rgba(234, 220, 209, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            z-index: 10; /* 카드가 배경보다 위에 오도록 */
+        }
+
+
+        .event-date {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            font-size: 0.9rem;
+            color: #7A635B;
+            font-weight: 700;
+            z-index: 1;
+        }
+
+
+        /* --- 카드 디자인 요소들 (생략하지 않고 모두 포함) --- */
+        .shape-top-left {
+            position: absolute; top: -50px; left: -50px; width: 150px; height: 150px; background-color: #D6B2A0;
+            border-radius: 50% 30% 50% 30%; transform: rotate(-20deg); z-index: 0;
+        }
+
+        .dots-top-left {
+            position: absolute; top: 60px; left: 30px; display: flex; flex-wrap: wrap; width: 80px; height: 50px;
+            transform: rotate(10deg); z-index: 0;
+        }
+        .dots-top-left::before, .dots-top-left::after,
+        .dots-top-left div:nth-child(1), .dots-top-left div:nth-child(2), .dots-top-left div:nth-child(3) {
+            content: ''; width: 8px; height: 8px; background-color: #D6B2A0; border-radius: 50%; margin: 4px; opacity: 0.7;
+        }
+        .dots-top-left div:nth-child(1) { width: 6px; height: 6px; }
+        .dots-top-left div:nth-child(2) { width: 10px; height: 10px; opacity: 0.8; }
+        .dots-top-left div:nth-child(3) { width: 7px; height: 7px; }
+
+
+        .leaf-bottom-right {
+            position: absolute; bottom: -30px; right: -30px; width: 100px; height: 100px; z-index: 0;
+            background-color: #B59A8F; border-radius: 50%; transform: rotate(45deg);
+        }
+        .leaf-bottom-right::before {
+            content: ''; position: absolute; top: 10px; left: 10px; width: 80px; height: 80px;
+            background-color: rgba(234, 220, 209, 0.9); border-radius: 50%;
+        }
+        .leaf-bottom-right::after {
+            content: ''; position: absolute; top: 50%; left: 50%; width: 2px; height: 60px;
+            background-color: #7A635B; transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+
+        .leaf-top-right {
+            position: absolute; top: 30px; /* 나뭇잎 위치 위로 이동 */
+            right: 15px; /* 나뭇잎 위치 오른쪽으로 이동 */
+            font-size: 3rem; color: #A08070;
+            transform: rotate(15deg); z-index: 1;
+        }
+
+
+        .event-title-en {
+            font-size: 2.2rem; color: #7A635B;
+            margin-top: 80px; /* 제목 상단 여백 증가 */
+            margin-bottom: -10px; z-index: 1; position: relative;
+        }
+        .event-title-ko {
+            font-size: 2.8rem; font-weight: 700; color: #5C4033; margin-bottom: 25px; z-index: 1; position: relative;
+        }
+
+
+        .event-description {
+            font-size: 1rem; color: #7A635B; line-height: 1.6; margin-bottom: 35px; z-index: 1; position: relative;
+        }
+
+
+        .hashtag {
+            display: inline-block; background-color: transparent; border: 2px solid #D6B2A0;
+            color: #7A635B; padding: 8px 18px; border-radius: 25px; font-size: 0.9rem;
+            margin: 0 8px; text-decoration: none; transition: all 0.2s ease-in-out; z-index: 1; position: relative;
+        }
+        .hashtag:hover {
+            background-color: #D6B2A0;
+            color: white;
+        }
+        /* ------------------------------------------- */
+    </style>
+</head>
+<body>
+<div class="event-card">
+
+    <div class="shape-top-left"></div>
+    <div class="dots-top-left">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="leaf-top-right">🍂</div>
+    <div class="leaf-bottom-right"></div>
+
+    <h2 class="event-title-en">김근호 강사님</h2>
+    <h1 class="event-title-ko">갤럭시 임팩트</h1>
+
+    <p class="event-description">
+        출석 체크 해야지 애들아<br>
+        지각, 결석 하지마라<br>
+        집에 가기전에 출석 체크 확인해라
+    </p>
+
+    <div>
+        <a href="check_in" class="hashtag">#출첵</a>
+        <a href="javascript:void(0);" onclick="alert('강사님, 오늘도 수업 감사합니다! 다음 시간도 기대됩니다.');" class="hashtag">#고생했어</a>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
