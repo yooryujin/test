@@ -13,9 +13,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -46,5 +48,21 @@ public class AttendController {
         model.addAttribute("pageInfo", new PageWrapper<>(attendPage, 5));
         return "attend-list";
     }
+
+    @PostMapping("/attend/bulk-delete")
+    public String bulkDeleteAttends(
+            @RequestParam(name = "selectIds", required = false) String selectIds) {
+
+        if (selectIds != null && !selectIds.isEmpty()) {
+            List<Long> ids = Arrays.stream(selectIds.split(","))
+                    .map(Long::parseLong)
+                    .collect(Collectors.toList());
+            attendService.deleteAttend(ids);
+        }
+
+        return "redirect:/attend-list";
+    }
+
+
 
 }

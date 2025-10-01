@@ -34,6 +34,11 @@ public class AttendService {
         return AttendResponse.fromEntity(savedAttend);
     }
 
+    @Transactional
+    public void deleteAttend(List<Long> ids) {
+        attendRepository.deleteAllById(ids);
+    }
+
     public List<AttendResponse> findAllAttends() {
         return attendRepository.findAll().stream()
                 .map(AttendResponse::fromEntity)
