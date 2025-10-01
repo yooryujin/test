@@ -5,6 +5,7 @@ import com.example.ryujin.attend.dto.AttendResponse;
 import com.example.ryujin.attend.entity.Attend;
 import com.example.ryujin.attend.helper.PageWrapper;
 import com.example.ryujin.attend.service.AttendService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +30,7 @@ public class AttendController {
     }
 
     @PostMapping("/attend/create")
-    public String createAttend(@ModelAttribute AttendRequest attendRequest) {
+    public String createAttend(@Valid @ModelAttribute AttendRequest attendRequest) {
         attendService.createAttend(attendRequest);
         return "redirect:/attend-list";
     }
