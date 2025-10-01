@@ -5,6 +5,8 @@ import com.example.ryujin.attend.dto.AttendResponse;
 import com.example.ryujin.attend.entity.Attend;
 import com.example.ryujin.attend.repository.AttendRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +38,11 @@ public class AttendService {
         return attendRepository.findAll().stream()
                 .map(AttendResponse::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+    public Page<AttendResponse> getAttendList(Pageable pageable) {
+        Page<Attend> attendPage = attendRepository.findAll(pageable);
+        return  attendPage.map(AttendResponse ::fromEntity);
     }
 
 }

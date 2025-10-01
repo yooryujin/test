@@ -53,6 +53,47 @@
             color: white;
             font-weight: 700;
         }
+
+        /* 👇👇👇 페이지네이션 스타일 추가 👇👇👇 */
+        .pagination-container {
+            display: flex;
+            justify-content: center; /* 중앙 정렬 */
+            margin-top: 25px;
+            list-style: none;
+            padding: 0;
+        }
+        .pagination-container li {
+            margin: 0 3px;
+        }
+        .pagination-container .page-link {
+            color: #5C4033;
+            font-family: 'CookieRun', sans-serif;
+            border: 1px solid #D6B2A0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.2s, color 0.2s;
+            display: block;
+        }
+        .pagination-container .page-link:hover {
+            background-color: #D6B2A0;
+            color: white;
+        }
+        .pagination-container .active .page-link {
+            background-color: #5C4033;
+            color: white;
+            border-color: #5C4033;
+            font-weight: 700;
+            pointer-events: none;
+        }
+        .pagination-container .disabled .page-link {
+            color: #B59A8F;
+            background-color: #EADCD1;
+            border-color: #EADCD1;
+            cursor: default;
+        }
+        /* 👆👆👆 페이지네이션 스타일 끝 👆👆👆 */
+
         .link-group {
             margin-top: 20px;
         }
@@ -93,6 +134,35 @@
         </tbody>
     </table>
 
+    <nav class="pagination-container" aria-label="Page navigation">
+        <ul class="pagination-container">
+
+            <li class="page-item {{#pageInfo.first}}disabled{{/pageInfo.first}}">
+                <a class="page-link"
+                   href="/attend-list?page={{pageInfo.previousPageNumber}}&size={{pageInfo.size}}&sort=timestamp,desc"
+                aria-label="Previous">
+                &laquo;
+                </a>
+            </li>
+
+            {{#pageInfo.pageNumbers}}
+                <li class="page-item {{#current}}active{{/current}}">
+                    <a class="page-link"
+                       href="/attend-list?page={{value}}&size={{pageInfo.size}}&sort=timestamp,desc">
+                    {{displayValue}}
+                    </a>
+                </li>
+            {{/pageInfo.pageNumbers}}
+
+            <li class="page-item {{#pageInfo.last}}disabled{{/pageInfo.last}}">
+                <a class="page-link"
+                   href="/attend-list?page={{pageInfo.nextPageNumber}}&size={{pageInfo.size}}&sort=timestamp,desc"
+                aria-label="Next">
+                &raquo;
+                </a>
+            </li>
+        </ul>
+    </nav>
     <div class="link-group">
         <a href="/attend/new">✍️ 새 기록 등록하기</a>
         <a href="/index">🏠 홈으로 돌아가기</a>

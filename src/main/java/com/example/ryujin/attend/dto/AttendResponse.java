@@ -21,6 +21,10 @@ public class AttendResponse {
     private LocalDateTime timestamp;
 
     public String getFormattedTimestamp() {
+        if (this.timestamp == null) {
+            return "";
+        }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return this.timestamp.format(formatter);
     }
